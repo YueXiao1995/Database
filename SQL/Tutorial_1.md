@@ -80,7 +80,7 @@ The **``UPDATE``** statement is used to modify the existing records in a table.
 	UPDATE table_name SET column1 = value1, column2 = value2 WHERE condition;
 	
 ## 8. DELETE Statement
-The ``**DELETE**`` statement is used to delete existing records in a table.
+The **``DELETE``** statement is used to delete existing records in a table.
 
 	DELETE FROM table_name WHERE condition;
 
@@ -88,4 +88,57 @@ Delete all rows in a table without deleting the table.
 
 	DELETE FROM table_name;
 
+## 9. TOP, LIMIT or ROWNUM Clause
 
+The **``SELECT TOP``** (**``LIMIT``** or **``ROWNUM``**) clause is used to specify the number of records to return. 
+
+It is useful on large tables with thousands of records. Returning a large number of records can impact performance.
+
+Database | Syntax
+------------ | ------------- |
+MySQL|	`SELECT column_name(s) FROM table_name WHERE condition LIMIT number;`
+SQL Server| `SELECT TOP number (PERCENT) column_name(s) FROM table_name WHERE condition;`
+Oracle Syntax| `SELECT column_name(s) FROM table_name WHERE ROWNUM <= number;`
+
+## 10. MIN() and MAX() Functions
+
+The **MIN()** function returns the smallest value of the selected column.
+
+	SELECT MIN(column_name) FROM table_name WHERE condition;
+	
+The **MAX()** function returns the largest value of the selected column.
+
+	SELECT MAX(column_name) FROM table_name WHERE condition;
+	
+## 11. COUNT(), AVG() and SUM() Functions
+
+The **COUNT()** function returns the number of rows that matches a specified criteria.
+
+	SELECT COUNT(column_name) FROM table_name WHERE condition;
+
+The **AVG()** function returns the average value of a numeric column.
+	
+	SELECT AVG(column_name) FROM table_name WHERE condition;
+	
+The **SUM()** function returns the total sum of a numeric column.
+
+	SELECT SUM(column_name) FROM table_name WHERE condition;
+	
+## 12. LIKE Operator
+The **``LIKE``** operator is used in a WHERE clause to search for a specified pattern in a column.
+
+There are two wildcards often used in conjunction with the LIKE operator:
+
+* **%** - The percent sign represents zero, one, or multiple characters
+* **_** - The underscore represents a single character
+
+LIKE Operator | Description
+------------- | -----------
+	`LIKE '%a'`| Finds any values that start with "a"
+	`LIKE 'a%'` | Finds any values that end with "a"
+	`LIKE '%or%'` | Finds any values that have "or" in any position
+	`LIKE '_r%'` | Finds any values that have "r" in the second position
+	
+	SELECT column1, column2 FROM table_name WHERE column1 LIKE pattern;
+	
+	
