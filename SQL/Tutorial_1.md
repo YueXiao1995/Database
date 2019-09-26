@@ -141,4 +141,82 @@ LIKE Operator | Description
 	
 	SELECT column1, column2 FROM table_name WHERE column1 LIKE pattern;
 	
+## 13. Wildcards
+A wildcard character is used to substitute one or more characters in a sting. Wildcard characters are used with the SQL **LIKE** operator.
+
+Wildcard Characters in **SQL Server**
+
+Symbol | Description | Example
+------ | ----------- | -------
+	%   | Represents zero or more characters| bl% -----  bl, black, blue, and blo
+_ | Represents a single character| h_t ------ hot, hat, and hit
+[] | Represents any single character within the brackets | h[oa]t --- hot and hat, but not hit
+^ | Represents any character not in the brackets | h[^oa]t ---- hit, but not hot and hat
+- | Represents a range of characters| c[a-b]t -- cat and cbt
+
+## 14. IN Operater
+The **``IN``** operator allows you to specify multiple values in a WHERE clasue. It is a shorthand (简短的表示) for multiple OR conditions.
+
+	SELECT column_name(s) FROM table_name WHERE column_name IN (value1, value2);
+
+or
+
+	SELECT column_name(s) FROM table_name WHERE column_name IN (SELECT STATEMENT);
+
+## 15. BETWEEN Operator
+
+The **``BETWEEN``** operator selects values within a given range. The values can be numbers, text, or dates.
+
+	SELECT column_name(s) FROM table_name WHERE column_name BETWEEN value1 AND value2;
+
+## 16. Aliases
+
+SQL aliases are used to give a table, or a column in a table, a temporary name. Aliases are often used to make column names more readable. An alias only exists for the duration of the query.
+
+Alias Column Syntax:
+
+	SELECT column_name AS alias_name FROM table_name;
 	
+Alias Table Syntax
+
+	SELECT column_name(s) FROM table_name AS alias_name;
+
+Example:
+	
+	SELECT a.column1, b.column1 FROM table_a AS a, table_b AS b WHERE a.column2 = b.column2;
+	
+## 17. Joins
+
+A **``JOIN``** clause is used to combine rows from two or more tables, based on a related column between them.
+	
+Different Types of SQL JOINs
+
+* **(INNER) JOIN**: Returns records that have matching values in both tables
+
+		SELECT column_name(s) FROM table1 INNER JOIN table2 ON table1.column_name = table2.column_name;
+
+	<center><img src="./images/inner-join.gif" width="200"></img></center>
+	
+* **LEFT (OUTER) JOIN**: Returns all records from the left table, and the matched records form the right table
+
+	    SELECT column_name(s) FROM table1 LEFT JOIN table2 ON table1.column_name = table2.column_name;
+
+<center><img src="./images/left-join.gif" width="200"></img></center>
+
+* **RIGHT (OUTER) JOIN**: Returns all records from the right table, and the matched records from the left table
+
+		SELECT column_name(s) FROM table1 RIGHT JOIN table2 ON table1.column_name = table2.column_name;
+			
+<center><img src="./images/right-join.gif" width="200"></img></center>
+
+* **FULL (OUTER) JOIN** Returns all records when there is a match in either left or right table
+
+		SELECT column_name(s) FROM table1 FULL OUTER JOIN table2 ON table1.column_name = table2.column_name WHERE condition;
+
+<center><img src="./images/full-join.gif" width="200"></img></center>
+
+* Self JOIN is a regular join, but the table is joined with itself.
+
+		SELECT column_name(s) FORM table1 T1, table1 T2 WHERE condition;
+T1 and T2 are different table aliases for the same table.
+
