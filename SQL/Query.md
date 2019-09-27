@@ -1,4 +1,4 @@
-# <center>Notebook 1</center>
+# <center>SQL QUERY</center>
 
 ## 1. Select
 
@@ -22,7 +22,7 @@ The **``WHERE``** clause is used to extract only those records that fulfill a sp
 
 	SELECT column1, column2 FROM table_name WHERE condition;
 	
-## 3. ADD, OR and NOT Operators
+## 3. AND, OR and NOT Operators
 The WHERE clause can be combined with **``AND``**, **``OR``**, and **``NOT``** operators.	
 
 AND Syntax
@@ -219,4 +219,135 @@ Different Types of SQL JOINs
 
 		SELECT column_name(s) FORM table1 T1, table1 T2 WHERE condition;
 T1 and T2 are different table aliases for the same table.
+
+## 18. UNION Operator
+
+The **``UNION``** operator is used to combine the result-set of two or more ``SELECT`` statements.
+
+	SELECT column_name(s) FROM table1 UNION SELECT column_name(s) FROM table2;
+	
+The UNION operator selects only distinct values by default. To allow duplicate values, use **``UNION ALL``**.
+
+	SELECT column_name(s) FROM table1 UNION ALL SELECT column_name(s) FORM table2;
+
+**Note:** The column names in the result-set are usually equal to the column names in the first SELECT statement in the UNION.
+
+
+## 19. GROUP BY Statement
+
+The **``GROUP BY``** statement groups rows that have the same values into summary rows, like "find the number of customers in each country".
+
+The **``GROUP BY``** statement is often used with **aggregate functions** (COUNT, MAX, MIN, SUM, AVG) to group the result-set by one or more columns.
+
+	SELECT column_name(s) FROM table_name WHERE condition GROUP BY column_name(s) ORDER BY column_name(s);
+	
+	
+## 20. HAVING Clause
+
+The **``HAVING``** clause was added to SQL because the ``WHERE`` keyword could not be used with aggregate functions.
+
+SELECT column_name(s) FROM table_name WHERE condition GROUP BY column_name(s) HAVING condition ORDER BY column_name(s);
+
+
+## 21. EXISTS Operator
+
+The **``EXISTS``** operator is used to test for the existence of any record in a subquery.
+
+The **``EXISTS``** operator returns **true** if the subquery returns one or more records.
+
+	SELECT column_name(s) FROM table_name WHERE EXISTS (SELECT column_name FROM table_name WHERE condition);
+
+
+## 22. ANY and ALL Operators
+
+The **``ANY``** and **``ALL``** operators are used with a ``WHERE`` or ``HAVING`` clause.
+
+**ANY Syntax:** The **``ANY``** operator returns true if any of the subquery values meet the condition.
+	
+	SELECT column_name(s) FROM table_name WHERE column_name WHERE column_name operator ANY (SELECT column_name FROM table_name WHERE condition);
+
+**ALL Syntax:** The **``ALL``** operator returns true if all of the subquery values meet the condition.	
+
+	SELECT column_name(s) FROM table_name WHERE column_name operator ALL(SELECT column_name FROM table_name WHERE condition);
+
+## 23. SELECT INTO Statement
+
+The **``SELECT INTO``** statement copies data from one table into a new table.
+
+Copy all columns into a new table:
+
+	SELECT * INTO newtable FROM oldtable WHERE condition;
+
+
+Copy only some columns into a new table:
+
+	SELECT column1, column2, column3 INTO newtable FROM oldtable WHERE condition;
+
+The following SQL statement uses the **``IN``** clause to copy the table into a new table in another database:
+	
+	SELECT * INTO newtable IN 'backup.mdb' FROM oldtbale;
+	
+
+**Tip:** **``SELECT INTO``** can also be used to create a new, empty table using the schema of another. 
+
+	SELECT * INTO newtable FROM oldtable WHERE 1 = 0;
+
+# 24 INSERT INTO SELECT Statement
+
+The **``INSERT INTO``** SELECT statement copies data from one table and inserts it into another table
+
+* **``INSERT INTO SELECT``** requires that data types in source and target tables match
+
+* The existing records in the target table are unaffected
+
+Copy all columns from one table to another table
+
+	INSERT INTO table2 SELECT * FROM table1 WHERE condition;
+	
+Copy only some colums from one table into another table
+
+	INSERT INTO table2 (column1, column2, column3) SELECT column1, column2 ,column3 FROM table1 WHERE condition;
+	
+## 25. CASE Statement
+
+The **``CASE``** statement goes through conditions and returns a value when the first condition is met (like an IF-THEN-ELSE statement). So, once a condition is true, it will stop reading and return the result. If no conditions are true, it returns the value in the **``ELSE``** clause.
+
+If there is no **``ELSE``** part and no conditions are true, it returns **NULL**.
+
+
+	CASE
+		 WHEN condition1 THEN result1
+		 WHEN condition2 THEN result2
+		 WHEN condition3 THEN result3
+		 ELSE result
+	END;
+
+## 26. NULL Functions
+
+Database | Function | Example
+----|---- | ----
+MySQL | IFNULL()|  `SELECT column1, INFULL(column2, 0) FROM table_name;`
+MySQL | COALESCE() | `SELECT column1, INFULL(column2, 0) FROM table_name;`
+SQL Server | ISNULL()| `SELECT column1, ISNULL(column2, 0) FROM table_name;`
+Oracle| NVL()|`SELECT column1, NVL(column2, 0) FROM table_name;`
+
+## 27 Comments
+Comments are used to explain sections of SQL statements, or to prevent execution of SQL statements.
+
+Any text between -- and the end of the line will be ignored (will not be executed).
+
+	-- Select all:
+	SELECT * FROM table_name;
+
+Any text between /* and */ will be ignored.
+
+	/* Select all the columns 
+	of all the records 
+	in the Customers table*/
+	SELECT * FROM table_name;
+	
+To ignore just a part of a statement, also use the /* */ comment.
+
+	SELECT column1, /* comment */ column2 FROM table_name;
+	
 
