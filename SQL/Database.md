@@ -125,8 +125,8 @@ A **``PRIMARY KEY``** constraint automatically has a **``UNIQUE``** constraint.
 	
 However, you can have many **``UNIQUE``** constraints per table, but only one **``PRIMARY KEY``** constraint per table.
 
----
-Add a **``UNIQUE``** constraint on a column when creating the table:
+
+### 1. Add a **``UNIQUE``** constraint on a column when creating the table:
 
 **SQL Server / Oracle / MS Access**:
 	
@@ -145,7 +145,7 @@ Add a **``UNIQUE``** constraint on a column when creating the table:
 		UNIQUE (column1)
 	);
 
-Define a **``UNIQUE``** constraint on multiple columns (In MysSQL / SQL Server / Oracle / MS Access):
+Define a **``UNIQUE``** constraint on multiple columns (In **MysSQL / SQL Server / Oracle / MS Access**):
 	
 	CREATE TABLE table_name (
 		column1 datatype NOT NULL
@@ -154,8 +154,8 @@ Define a **``UNIQUE``** constraint on multiple columns (In MysSQL / SQL Server /
 		CONSTRAINT unique_constraint_name UNIQUE (column1, column2)
 	);
 
----
-Add a **``UNIQUE``** constraint on a column when the table is already created:
+
+### 2. Add a **``UNIQUE``** constraint on a column when the table is already created:
 
 	ALTER TABLE table_name ADD UNIQUE(column1);
 
@@ -163,8 +163,8 @@ On multiple columns:
 
 	ALTER TABLE table_name ADD CONSTRAINT unique_constraint_name UNIQUE (column1, column2);
 
----	
-Drop a UNIQUE Constraint:
+
+### 3. Drop a UNIQUE Constraint:
 
 **MySQL**:
 	
@@ -173,4 +173,122 @@ Drop a UNIQUE Constraint:
 **SQL Server / Oracle / MS Access**
 
 	ALTER TABLE table_name DROP CONSTRAINT unique_constraint_name;
+
+## 10. PRIMARY KEY Constraint
+
+The **``PRIMARY KEY``** constraint uniquely identifies each record in a table.
+
+A table can have only **ONE** primary key; and in the table, this primary key can consist of single or multiple columns (fields).
+
+### 1. PRIMARY KEY on CREATE TABLE
+
+Create a **PRIMARY KEY** on one column
+**SQL Server / Oracle / MS Access**:
+
+	CREATE TABLE table_name (
+		column1 datatype NOT NULL,
+		column2 datatype Not NULL,
+		PRIMARY KEY(column1)
+	);
+**MySQL**:
+
+	CREATE TABLE table_name (
+		column1 datatype NOT NULL PRIMARY KEY,
+		column2 datatyoe NOT NULL
+	);
+
+Define a **PRIMARY KEY** constraint on multiple columns.
+
+	CREATE TABLE table_name(
+		column1 datatype NOT NULL,
+		column2 datatyoe NOT NULL,
+		CONSTRAINT PK_name PRIMARY KEY(column1, column2)
+	);
+	
+
+### 2. PRIMARY KEY on ALTER TABLE
+On one column:
+
+	ALTER TABLE table_name ADD PRIMARY KEY(column1);
+	
+On multiple columns:
+
+	ALTER TABLE table_name ADD CONSTRAINT PK_name PRIMARY KEY(column1, column2);
+
+### 3. DROP a PRIMARY KEY Constraint
+
+**MySQL**:
+	
+	ALTER TABLE table_name DROP PRIMARY KEY;
+	
+**SQL Server / Oracle / MS Access**:
+
+	ALTER TABLE table_name DROP CONSTRAINT PK_name;
+
+
+## 11. FOREIGN KEY Constraint
+
+A **``FOREIGN KEY``** is a key used to link two tables together.
+
+A **``FOREIGN KEY``** is a field (or collection of fields) in one table that refers to the **``PRIMARY KEY``** in another table.
+
+The table containing the foreign key is called the child table, and the table containing the candidate key is called the referenced or parent table.
+
+The **``FOREIGN KEY``** constraint is used to prevent actions that would destroy links between tables.
+
+The **``FOREIGN KEY``** constraint also prevents invalid data from being inserted into the foreign key column, because it has to be one of the values contained in the table it points to.
+
+
+### 1. FOREIGN KEY on CREATE TABLE
+
+On one column:
+
+**MySQL**:
+
+	CREATE TABLE table_name_1 (
+		column1 datatype NOT NULL,
+		column2 datatype NOT NULL,
+		column3 datatype,
+		PRIMARY KEY(column1),
+		FOREIGN KEY(column3) REFERENCES table_name_2(column3)
+	);
+
+**SQL Server / Oracle / MS Access**:
+
+	CREATE TABLE table_name_1 (
+		column1 datatype NOT NULL PRIMARY KEY,
+		column2 datatype NOT NULL,
+		column3 datatype FOREIGN KEY REFERENCES table_name2(column3)
+	);
+
+To allow naming and on multiple columns:
+
+	CREATE TABLE table_name_1 (
+		column1 datatype NOT NULL,
+		column2 datatype NOT NULL,
+		column3 datatyoe,
+		PRIMARY KEY(column1),
+		CONSTRAINT FK_name FOREIGN KEY(column3) REFERENCES table_name_2(column3)
+	);
+	
+### 2. FOREIGN KEY on ALTER TABLE
+On one column:
+
+	ALTER TABLE table_name_1 ADD FOREIGN KEY(column1) REFERENCES table_name_2(column1);
+	
+On multiple columns:
+
+	ALTER TABLE table_name_1 ADD CONSTRAINT FK_name FORIGN KEY(column1) REFERENCES table_name_2(column1);
+	
+### 3. DROP a FOREIGN KEY Constraint
+
+**MySQL**: 
+	
+	ALTER TABLE table_name DROP FOREIGN KEY FK_name;
+	
+**SQL Server / Oracle / MS Access**:
+
+	ALTER TABLE table_name DROP CONSTRAINT FK_name;
+
+
 
