@@ -291,4 +291,102 @@ On multiple columns:
 	ALTER TABLE table_name DROP CONSTRAINT FK_name;
 
 
+## 12. CHECK Constraint
+
+The **``CHECK``** constraint is used to limit the value range that can be placed in a column.
+
+If you define a **``CHECK``** constraint on a single column it allows only certain values for this column.
+
+If you define a **``CHECK``** constraint on a table it can limit the values in certain columns based on values in other columns in the row.
+
+### 1. CHECK on CREATE TABLE
+
+On one column:
+
+**MySQL**:
+	
+	CREATE TABLE table_name (
+		column1 datatype NOT NULL,
+		column2 datatype,
+		column3 datatype,
+		CHECK (column >= value)
+	);
+	
+**SQL Server / Oracle / MS Access**:
+	
+	CREATE TABLE table_name (
+		column1 datatype NOT NULL,
+		column2 datatype,
+		column3 datatype CHECK (column3 >= value)
+	);
+	
+On multiple columns:
+
+	CREATE TABLE table_name (
+		column1 datatype NOT NULL,
+		column2 datatype,
+		column3 datatype,
+		CONSTRAINT CHK_name CHECK (column2 > value AND column3 = value)
+	);
+	
+### 2. CHECK on ALTER TABLE
+
+On one column:
+
+	ALTER TABEL table_name ADD CHECK (column1 > 18);
+	
+On multiple columns:
+	
+	ALTER TABLE table_name ADD CONSTRAINT CHK_name CHECK (column2 > value AND column3 = value);
+
+### 3. DROP a CHECK Constraint
+
+**MySQL**:
+	
+	ALTER TABLE table_name DROP CHECK CHK_name;
+
+**SQL Server / Oracle / MS Access**:
+
+	ALTER TABLE table_name DROP CONSTRAINT CHK_name;
+
+## 13. DEFAULT Constraint
+
+The **``DEFAULT``** constraint is used to provide a default value for a column.
+
+The default value will be added to all new records IF no other value is specified.
+
+### 1. DEFAULT on CREATE TABLE
+
+	CREATE TABLE table_name (
+		column1 datatype NOT NULL,
+		column2 datatype NOT NULL
+		column3 datatype DEFAULE value
+	);
+	
+The **``DEFAULT``** constraint can also be used to insert system values, by using functions like **GETDATE()**
+
+	CREATE TABLE table_name (
+	column1 datatype NOT NULL,
+	column2 datatype NOT NULL,
+	column3 datatype DEFAULT GETDATE()
+	);
+
+### 2. DEFAULT on ALTER TABLE
+
+Database | Example 
+--- | ---
+MySQL | ``ALTER TABLE table_name ALTER column SET DEFAULT value;``
+SQL Server | ``ALTER TABLE table_name ADD CONSTRAINT df_name DEFAULT value FOR column1;``
+MS Access | ``ALTER TABLE table_name ALTER COLUMN column1 SET DEFAULT value;``
+Oracle | ``ALTER TABLE table_name MODIFY column1 DEFAULT value;``
+
+
+### 3. DROP a DEFAULT Constraint
+**MySQL**:
+	
+	ALTER TABLE table_name ALTER column1 DROP DEFAULT;
+
+**SQL Server / Oracle / MS Access**:
+	
+	ALTER TABLE table_name ALTER COLUMN column1 DROP DEFAULT;
 
