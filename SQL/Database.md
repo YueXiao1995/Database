@@ -390,3 +390,63 @@ Oracle | ``ALTER TABLE table_name MODIFY column1 DEFAULT value;``
 	
 	ALTER TABLE table_name ALTER COLUMN column1 DROP DEFAULT;
 
+## 14. CREATE INDEX Statement
+
+The **``CREATE INDEX``** statement is used to create indexes in tables.
+
+Indexes are used to retrieve data from the database very fast. The users cannot see the indexes, they are just used to speed up searches/queries.
+
+CREATE INDEX Syntax
+
+	CREATE INDEX index_name ON table_name (column, column2, ...);
+
+CREATE UNIQUE INDEX Syntax
+
+	CREATE UNIQUE INDEX index_name ON table_name (column1, column2, ...);
+
+DROP INDEX Statemnt
+
+Database | Syntax
+--- | ---
+MySQL | `ALTER TABLE table_name DROP INDEX index_name;`
+SQL Server | `DROP INDEX table_name.index_name;`
+MS Access | `DROP INDEX index_name ON table_name;`
+
+## 15. AUTO INCREMENT Field
+
+Auto-increment allows a unique number to be generated automatically when a new record is inserted into a table.
+
+Often this is the primary key field that we would like to be created automatically every time a new record is inserted.
+
+Syntax for MySQL 
+
+	CREATE TABLE table_name (
+		column1 datatype NOT NULL AUTO_INCREMENT,
+		column2 datatype NOT NULL,
+		column3 datatype
+		PRIMARY KEY (column1)
+	);
+
+To let the **``AUTO_INCREMENT``** sequence start with another value, use the following SQL statement:
+
+	ALTER TABLE table_name AUTO_INCREMENT = 100;
+
+## 16. Dates
+
+**MySQL:** 
+
+Type | Format
+---  | ---
+**``DATE``** | YYYY-MM-DD
+**``DATETIME``** | YYYY-MM-DD HH:MI:SS
+**``TIMESTAMP``** | YYYY-MM-DD HH:MI:SS
+**``YEAR``** | YYYY
+
+**SQL Server:**
+
+Type | Format
+--- | ---
+**``DATE``** | YYYY-MM-DD
+**``DATETIME``** | YYYY-MM-DD HH:MI:SS
+**``SMALLDATETIME``** | YYYY-MM-DD HH:MI:SS
+**``TIMESTAMP``** | a unique number
